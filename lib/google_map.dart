@@ -9,16 +9,29 @@ class GoogleMapScreen extends StatefulWidget {
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreen> {
+  static const LatLng _pGooglePlex =
+      LatLng(23.775296799478227, 90.36519209370027);
+  late GoogleMapController googleMapController;
 
-  static const LatLng _pGooglePlex = LatLng(23.775296799478227, 90.36519209370027);
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: GoogleMap(
-        initialCameraPosition: CameraPosition(
+        mapType: MapType.normal,
+        initialCameraPosition:const CameraPosition(
           target: _pGooglePlex,
           zoom: 16.0,
-      )),
+        ),
+        onTap: (LatLng? latlng) {
+          print(latlng);
+        },
+        zoomControlsEnabled: true,
+        zoomGesturesEnabled: true,
+        onMapCreated: (GoogleMapController controller) {
+          googleMapController = controller;
+        },
+        trafficEnabled: true,
+      ),
     );
   }
 }
